@@ -1,10 +1,437 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>My Personal Homepage</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Personal academic homepage of Vincent Bao, Ph.D. student in Computer Engineering at Texas A&M University.">
+  <title>Vincent Bao | Ph.D. Student in Computer Engineering</title>
+  <style>
+    :root {
+      --bg: #fbfbfa;
+      --surface: #ffffff;
+      --text: #202124;
+      --muted: #686b70;
+      --line: #e7e7e4;
+      --accent: #500000;
+      --accent-soft: #f4eaea;
+      --max: 1050px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.7;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: .2s ease;
+    }
+
+    a:hover {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
+    }
+
+    .container {
+      width: min(calc(100% - 40px), var(--max));
+      margin: 0 auto;
+    }
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(251, 251, 250, .92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nav-inner {
+      min-height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand {
+      font-weight: 700;
+      letter-spacing: -.02em;
+    }
+
+    .links {
+      display: flex;
+      gap: 24px;
+      font-size: .92rem;
+      color: var(--muted);
+    }
+
+    .links a:hover { border-bottom-color: transparent; }
+
+    header {
+      padding: 105px 0 85px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.4fr .6fr;
+      gap: 70px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: .13em;
+      font-size: .78rem;
+      font-weight: 700;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      margin: 0 0 18px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(3rem, 7vw, 5.6rem);
+      line-height: .98;
+      letter-spacing: -.055em;
+      font-weight: 500;
+    }
+
+    .tagline {
+      max-width: 700px;
+      margin: 0;
+      font-size: 1.25rem;
+      color: var(--muted);
+    }
+
+    .hero-card {
+      border: 1px solid var(--line);
+      background: var(--surface);
+      padding: 28px;
+      border-radius: 14px;
+    }
+
+    .hero-card strong {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .hero-card p {
+      margin: 0 0 18px;
+      color: var(--muted);
+      font-size: .94rem;
+    }
+
+    .hero-card p:last-child { margin-bottom: 0; }
+
+    section {
+      padding: 82px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .section-grid {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 55px;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: .85rem;
+      text-transform: uppercase;
+      letter-spacing: .13em;
+      color: var(--accent);
+    }
+
+    .content {
+      max-width: 760px;
+    }
+
+    .content p {
+      margin-top: 0;
+      margin-bottom: 20px;
+    }
+
+    .interest-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .interest {
+      border: 1px solid var(--line);
+      background: var(--surface);
+      padding: 18px 20px;
+      border-radius: 10px;
+      font-weight: 600;
+    }
+
+    .timeline {
+      display: grid;
+      gap: 30px;
+    }
+
+    .item {
+      position: relative;
+      padding-left: 24px;
+      border-left: 2px solid var(--line);
+    }
+
+    .item::before {
+      content: "";
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      left: -5px;
+      top: 9px;
+    }
+
+    .item h3 {
+      margin: 0 0 4px;
+      font-size: 1.08rem;
+    }
+
+    .item .meta {
+      color: var(--muted);
+      font-size: .92rem;
+      margin-bottom: 8px;
+    }
+
+    .item p { margin: 0; }
+
+    .project {
+      padding: 25px 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .project:first-child { border-top: 0; padding-top: 0; }
+
+    .project h3 {
+      margin: 0 0 7px;
+      font-size: 1.15rem;
+    }
+
+    .project p {
+      color: var(--muted);
+      margin: 0;
+    }
+
+    .status {
+      display: inline-block;
+      margin-top: 13px;
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: .75rem;
+      font-weight: 700;
+    }
+
+    .contact-box {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 25px;
+    }
+
+    .button {
+      display: inline-block;
+      border: 1px solid var(--line);
+      background: var(--surface);
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-size: .9rem;
+    }
+
+    .button:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    footer {
+      padding: 35px 0 50px;
+      color: var(--muted);
+      font-size: .85rem;
+    }
+
+    @media (max-width: 760px) {
+      .links { display: none; }
+      header { padding: 75px 0 60px; }
+      .hero, .section-grid { grid-template-columns: 1fr; gap: 30px; }
+      section { padding: 60px 0; }
+      .interest-grid { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
+
 <body>
-    <h1>Welcome to my website!</h1>
-    <p>Hello world! This is my personal page hosted on GitHub.</p>
+  <nav>
+    <div class="container nav-inner">
+      <a class="brand" href="#top">Vincent Bao</a>
+      <div class="links">
+        <a href="#about">About</a>
+        <a href="#research">Research</a>
+        <a href="#education">Education</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <main id="top">
+    <header>
+      <div class="container hero">
+        <div>
+          <div class="eyebrow">Ph.D. Student · Texas A&M University</div>
+          <h1>Vincent Bao</h1>
+          <p class="tagline">
+            Exploring machine learning, adversarial robustness, and trustworthy AI
+            from a computer engineering perspective.
+          </p>
+        </div>
+
+        <aside class="hero-card">
+          <strong>Currently</strong>
+          <p>Ph.D. student in Computer Engineering at Texas A&M University.</p>
+
+          <strong>Research direction</strong>
+          <p>Machine learning with a growing focus on adversarial robustness and reliable AI.</p>
+
+          <strong>Based in</strong>
+          <p>College Station, Texas</p>
+        </aside>
+      </div>
+    </header>
+
+    <section id="about">
+      <div class="container section-grid">
+        <h2>About</h2>
+        <div class="content">
+          <p>
+            I am a Ph.D. student in Computer Engineering at Texas A&M University,
+            where I am developing my research interests around machine learning
+            and trustworthy AI.
+          </p>
+          <p>
+            My current interests are centered on understanding how machine
+            learning systems behave under challenging or adversarial conditions,
+            and how we can make these systems more robust, reliable, and
+            trustworthy.
+          </p>
+          <p>
+            I am still early in my research journey, and I enjoy building a
+            strong foundation in machine learning, optimization, security, and
+            the mathematical ideas that support modern AI.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="research">
+      <div class="container section-grid">
+        <h2>Research</h2>
+        <div class="content">
+          <p>
+            My research interests are evolving, but currently revolve around
+            the intersection of machine learning and security.
+          </p>
+
+          <div class="interest-grid">
+            <div class="interest">Adversarial Robustness</div>
+            <div class="interest">Machine Learning</div>
+            <div class="interest">Trustworthy AI</div>
+            <div class="interest">ML Security</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="education">
+      <div class="container section-grid">
+        <h2>Education</h2>
+        <div class="content timeline">
+          <div class="item">
+            <h3>Ph.D. in Computer Engineering</h3>
+            <div class="meta">Texas A&M University · College Station, Texas · 2026–</div>
+            <p>
+              Research interests in machine learning, adversarial robustness,
+              and trustworthy AI.
+            </p>
+          </div>
+
+          <div class="item">
+            <h3>Undergraduate Studies</h3>
+            <div class="meta">Add your university, degree, and graduation year</div>
+            <p>
+              Add a short description of your undergraduate background,
+              particularly projects or coursework relevant to your current research.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <div class="container section-grid">
+        <h2>Projects</h2>
+        <div class="content">
+          <div class="project">
+            <h3>Adversarial Robustness — Foundations</h3>
+            <p>
+              A developing study of adversarial examples, threat models,
+              optimization-based attacks, and defenses for machine learning systems.
+            </p>
+            <span class="status">Learning / Research</span>
+          </div>
+
+          <div class="project">
+            <h3>Coming Soon</h3>
+            <p>
+              Research projects, publications, and technical work will be added here
+              as they develop.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="container section-grid">
+        <h2>Contact</h2>
+        <div class="content">
+          <p>
+            I am always interested in connecting with researchers, students,
+            and others working on machine learning and trustworthy AI.
+          </p>
+
+          <div class="contact-box">
+            <!-- Replace these placeholder links with your real accounts. -->
+            <a class="button" href="mailto:YOUR_TAMU_EMAIL@tamu.edu">Email</a>
+            <a class="button" href="https://github.com/YOUR_USERNAME" target="_blank" rel="noopener">GitHub</a>
+            <a class="button" href="https://www.linkedin.com/in/YOUR_USERNAME/" target="_blank" rel="noopener">LinkedIn</a>
+            <a class="button" href="cv.pdf" target="_blank" rel="noopener">CV</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      © 2026 Vincent Bao · Texas A&M University
+    </div>
+  </footer>
 </body>
 </html>
